@@ -1,25 +1,35 @@
+import java.util.List;
+
 public class Runner {
 	public static void main(String[] args) {
-		String s = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-//		Text t = new Text();
-//		t.setText(s);
-//		t.setWidth(7);
-
-		Paragraph t = new Paragraph();
-		t.setText(s);
-		t.setWidth(7);
-		t.setIndentation(2);
-
-		Border text = new Border(t);
-		text.setWidth(8);
-
-		for(String row : text.build()) {
+		List<Text> text = List.of(
+			buildText("Видео предоставляет прекрасную возможность подтвердить свою точку зрения. Чтобы вставить код внедрения для видео, которое вы хотите добавить, нажмите \"Видео в сети\".Вы также можете ввести ключевое слово, чтобы найти в Интернете видео, которое лучше всего подходит для вашего документа."),
+			new LongText(List.of(
+				buildText("Видео предоставляет прекрасную возможность подтвердить свою точку зрения. Чтобы вставить код внедрения для видео, которое вы хотите добавить, нажмите \"Видео в сети\".Вы также можете ввести ключевое слово, чтобы найти в Интернете видео, которое лучше всего подходит для вашего документа."),
+				buildParagraph("Чтобы придать документу профессиональный вид, воспользуйтесь доступными в Word макетами верхних и нижних колонтитулов, титульной страницы и текстовых полей, которые дополняют друг друга. Например, вы можете добавить подходящую титульную страницу, верхний колонтитул и боковое примечание. Откройте вкладку \"Вставка\" и выберите нужные элементы из различных коллекций.", 4),
+				buildParagraph("Темы и стили также помогают придать документу единообразный вид. Если на вкладке \"Конструктор\" выбрать другую тему, то изображения, диаграммы и графические элементы SmartArt изменятся соответствующим образом.При применении стилей заголовки изменяются в соответствии с новой темой.", 4)
+			)),
+			new Border(buildParagraph("Новые кнопки, которые видны, только если они действительно нужны, экономят время при работе в Word.Чтобы изменить расположение рисунка в документе, щелкните его, и рядом с ним появится кнопка для доступа к параметрам разметки. При работе с таблицей щелкните то место, куда нужно добавить строку или столбец, и щелкните знак \"плюс\".", 4)),
+			buildText("Читать тоже стало проще благодаря новому режиму чтения. Можно свернуть части документа, чтобы сосредоточиться на нужном фрагменте текста. Если вы прервете чтение, не дойдя до конца документа, Word запомнит, в каком месте вы остановились (даже на другом устройстве).")
+		);
+//		Text result = new Border(new UnorderedList(text, ' '));
+		Text result = new Border(new UnorderedList(text, UnorderedList.MarkerType.ASTERISK));
+		result.setWidth(50);
+		for(String row : result.build()) {
 			System.out.println(row);
 		}
+	}
 
-//		for(String row : text.build()) {
-//			System.out.println(row);
-//		}
+	private static Text buildText(String s) {
+		Text text = new Text();
+		text.setText(s);
+		return text;
+	}
+
+	private static Paragraph buildParagraph(String s, int indentation) {
+		Paragraph paragraph = new Paragraph();
+		paragraph.setText(s);
+		paragraph.setIndentation(indentation);
+		return paragraph;
 	}
 }
